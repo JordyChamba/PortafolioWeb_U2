@@ -15,6 +15,18 @@
       <button @click="imprimirApellido()">Imprimir Apellido</button>
       <button @click="agregarEstudiante()">Agregar estudiante</button>
     </div>
+    <hr />
+    <div>
+      <label for="nombre1"> Nombre </label>
+      <input id="nombre1" type="text" v-model="nombre1" />
+      <label for="apellido1"> Apellido </label>
+      <input
+        v-on:keypress.enter="agregarEstudiante1"
+        id="apellido1"
+        type="text"
+        v-model="apellido1"
+      />
+    </div>
 
     <p v-if="mensaje" class="mensaje">{{ mensaje }}</p>
 
@@ -52,6 +64,8 @@ export default {
     return {
       nombre: "",
       apellido: "",
+      nombre1: "",
+      apellido1: "",
       arreglo: [],
       mensaje: "",
     };
@@ -74,21 +88,22 @@ export default {
       }, 3000);
     },
 
-    agregarEstudiante() {
-      if (!this.nombre.trim() || !this.apellido.trim()) {
+    agregarEstudiante1() {
+      if (!this.nombre1.trim() || !this.apellido1.trim()) {
         this.mostrarMensaje("Debes completar ambos campos.");
         return;
       }
 
       const estu = {
-        nombre: this.nombre.trim(),
-        apellido: this.apellido.trim(),
+        nombre: this.nombre1.trim(),
+        apellido: this.apellido1.trim(),
       };
 
       console.log("Se agrega estudiante", estu);
 
       this.arreglo.push(estu);
-      this.limpiarFormulario();
+      this.nombre1 = "";
+      this.apellido1 = "";
       this.mostrarMensaje("Estudiante agregado correctamente!");
     },
 
